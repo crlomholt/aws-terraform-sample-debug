@@ -443,7 +443,7 @@ resource "aws_iam_policy" "deployment_policy_1" {
 resource "aws_iam_role" "deployment_role" {
   description          = "description here"
   max_session_duration = 3600
-  name                 = "deployment_role"
+  name                 = "${var.service_name}-deployment_role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
