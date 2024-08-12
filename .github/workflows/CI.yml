@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  tf_plan:
+  tf_deploy:
     name: terraform plan
     runs-on: ubuntu-latest
     steps:
@@ -21,6 +21,8 @@ jobs:
           role-to-assume: "arn:aws:iam::590183861895:role/test_role_deploy"
           role-session-name: test-session
           aws-region: us-east-1
+      - name: Terraform-Lint
+        uses: actionshub/terraform-lint@2.0.1
       - name: terraform init
         run: terraform init -upgrade -input=false -backend-config=./backend_config/config.s3.dev.tfbackend
         working-directory: ./terraform
