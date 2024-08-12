@@ -4,14 +4,9 @@ on:
   push:
     branches:
       - main
-  workflow_call: # allows calling this workflow from another workflow
-    secrets:
-      AWS_ACCESS_KEY_ID: { required: true }
-      AWS_SECRET_ACCESS_KEY: { required: true }
-
 permissions:
-    id-token: write
-    contents: read
+  id-token: write
+  contents: read
 
 jobs:
   tf_plan:
@@ -23,8 +18,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: "arn:aws:iam::590183861895:role/test_role_deploy"
+          role-session-name: test-session
           aws-region: us-east-2
       - name: terraform init
         run: terraform init -upgrade -input=false -backend-config=./backend_config/config.s3.dev.tfbackend
