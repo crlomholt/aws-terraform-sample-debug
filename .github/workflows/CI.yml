@@ -24,6 +24,6 @@ jobs:
       - name: terraform init
         run: terraform init -upgrade -input=false -backend-config=./backend_config/config.s3.dev.tfbackend
         working-directory: ./terraform
-      - name: terraform plan
-        run: terraform plan
+      - name: terraform apply
+        run: terraform plan -auto-approve
         working-directory: ./terraform
