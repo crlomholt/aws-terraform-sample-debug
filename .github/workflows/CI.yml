@@ -1,6 +1,9 @@
 name: Terraform actions
 
 on:
+  push:
+    branches:
+      - main
   workflow_call: # allows calling this workflow from another workflow
     secrets:
       AWS_ACCESS_KEY_ID: { required: true }
@@ -15,7 +18,7 @@ jobs:
     name: terraform plan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
